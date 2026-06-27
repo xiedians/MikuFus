@@ -1,5 +1,4 @@
 # MikuFus
-<<<<<<< HEAD
 
 > 类 Bilibili 二次元内容社区 · Go + Vue 全栈实战项目
 

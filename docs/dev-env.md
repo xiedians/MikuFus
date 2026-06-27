@@ -35,7 +35,7 @@ services:
     volumes:
       - redis_data:/data
     networks:
-      - public-network
+      - network
 
   postgres:
     image: postgres:16
@@ -50,7 +50,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - public-network
+      - network
 
   minio:
     image: minio/minio
@@ -66,7 +66,7 @@ services:
     volumes:
       - minio_data:/data
     networks:
-      - public-network
+      - network
 
 volumes:
   postgres_data:
@@ -74,9 +74,8 @@ volumes:
   redis_data:
 
 networks:
-  public-network:
+  network:
     driver: bridge
-
 ```
 
 ### .env 
@@ -90,3 +89,11 @@ POSTGRES_DB=db_name
 MINIO_ROOT_USER=minio
 MINIO_ROOT_PASSWORD=password
 ```
+
+### PS
+
+docker network create 会添加项目前缀，避免与其他项目冲突。
+
+运行 `docker network ls`检测
+
+这里我使用的是命名 volume, 避免数据丢失, 推荐根据自己的电脑系统设置路径。
