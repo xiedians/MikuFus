@@ -4,139 +4,144 @@
 
 ## 项目简介
 
-MikuFus 是一个面向 ACG（Anime、Comic、Game）内容创作者与爱好者的社区平台。
+MikuFus 是一个面向 ACG（Anime、Comic、Game）内容创作者与爱好者的内容分享社区。
 
-项目灵感来源于一个简单的问题：
+项目灵感来源于一个问题：
 
-> Bilibili 的频道能不能设计成论坛式社区板块？
+> 如果将 Bilibili 的内容生产能力，与传统论坛的社区交流模式结合，会是什么样？
 
-在日常使用 Bilibili 和浏览各类 ACGN 社区的过程中，我发现视频平台拥有优秀的内容生产能力，而传统论坛拥有优秀的社区交流能力。
+MikuFus 希望实现一个轻量级社区平台，支持图文、视频等内容发布，并围绕兴趣建立社区互动。
 
-MikuFus 希望结合两者的特点：
-
-* 像 Bilibili 一样方便地发布内容
-* 像论坛一样围绕兴趣进行交流
-* 提供轻量级的内容分享与社区互动体验
-
-同时，这也是我的第一个完整全栈项目，用于学习和实践：
+本项目也是我的第一个完整全栈实践项目，用于学习和实践：
 
 * Go Web 开发
 * Vue 前后端分离
 * PostgreSQL 数据库设计
-* Redis 缓存设计
-* 对象存储集成
-* Docker 工程化部署
+* Redis 缓存
+* MinIO 对象存储
+* Docker 容器化开发与部署
 
 ---
 
-## 功能规划
+# 功能规划
 
-### 个人空间
+## 当前版本
 
-用户拥有独立主页，可发布：
+* 用户注册 / 登录
+* 用户个人主页
+* 图文内容发布
+* 内容推荐流
+* 评论与点赞
+* 后台内容审核
 
-* 图文内容
-* 视频内容
-* 专栏内容
+## 后续计划
 
-采用模板化发布方式，降低创作门槛并保持内容结构统一。
-
-### 推荐信息流
-
-首页负责内容分发。
-
-初期采用：
-
-* 发布时间排序
-* 标签匹配
-
-后续根据项目发展逐步优化推荐策略。
-
-### 后台管理
-
-管理员负责：
-
-* 内容审核
-* 用户管理
-* 举报处理
-
-保障社区内容质量和秩序。
-
-### 频道分享（Future）
-
-参考传统论坛板块设计。
-
-未来计划支持：
-
+* 视频投稿
 * 兴趣频道
-* 版主管理
-* 频道内容聚合
+* 收藏与关注
+* 消息通知
 
 ---
 
-## 技术栈
+# 技术栈
 
-### 前端
+## Frontend
 
-| 模块  | 技术                      |
-| --- | ----------------------- |
-| 用户端 | Vue 3 + Vite + UnoCSS   |
-| 管理端 | Vue 3 + Vite + Naive UI |
+| Module | Technology              |
+| ------ | ----------------------- |
+| Client | Vue 3 + Vite + UnoCSS   |
+| Admin  | Vue 3 + Vite + Naive UI |
 
-### 后端
+## Backend
 
-| 模块             | 技术         |
+| Module         | Technology |
 | -------------- | ---------- |
-| Web Framework  | Gin        |
 | Language       | Go         |
+| Framework      | Gin        |
 | Database       | PostgreSQL |
 | Cache          | Redis      |
 | Authentication | JWT        |
 
-### 基础设施
+## Infrastructure
 
-| 模块             | 技术     |
-| -------------- | ------ |
-| Object Storage | MinIO  |
-| Container      | Docker |
+| Module         | Technology              |
+| -------------- | ----------------------- |
+| Object Storage | MinIO                   |
+| Container      | Docker & Docker Compose |
 
 ---
 
-## 项目结构
+# 项目结构
 
 ```text
-mikufus/
-├── go-service/  # Go 后端服务
-├── vue-client/  # 用户端
-├── vue-admin/   # 管理端
-├── docs/        # 项目文档
-├── compose.yml  # Docker Compose 配置
+MikuFus/
+├── go-service/
+├── vue-client/
+├── vue-admin/
+├── shared/
+├── docs/
 └── README.md
 ```
 
 ---
 
-## 开发环境说明
+# 开发环境
 
-本仓库仅包含业务代码。
+开发环境采用 Docker Compose 统一管理。
 
-以下基础设施由开发环境独立提供，不包含在本仓库中：
+包括：
 
-* GO 
-* Node
-* Docker
+* Go Service
+* Vue Client
+* Vue Admin
+* PostgreSQL
+* Redis
+* MinIO
 
-使用
+所有服务运行在同一个 Docker Network 中。
 
-项目通过环境变量连接上述服务。
+---
 
-具体配置请参考 [开发环境文档](docs/dev-env.md)。
+# 快速开始
 
-> 相关资源：
+## 1. 克隆仓库
 
-* [开发环境文档](docs/dev-env.md)
-* [数据库文档](docs/dev-db.md)
-* [API 文档](docs/dev-api.md)
-* [开发计划](docs/dev-plan.md)
+```bash
+git clone https://github.com/xiedians/MikuFus.git
 
-## 项目部署
+cd MikuFus
+```
+
+---
+
+## 2. 启动  postgre minio redis
+
+相关内容参考[开发环境文档](docs/mikufus-env.md)
+
+---
+
+## 3. 启动 Go Service
+
+………
+
+## 4. 启动 Vue Client
+
+………
+
+## 5. 启动 Vue Admin
+
+………
+
+# 相关文档
+
+## mikufus 相关文档
+
+* [API 文档](docs/mikufus-api.md)
+* [环境变量文档](docs/mikufus-env.md)
+* [数据库迁移文档](docs/mikufus-db.md)
+
+## mikufus 服务文档
+
+* [Go Service 文档](go-service/README.md)
+* [Vue Client 文档](vue-client/README.md)
+* [Vue Admin 文档](vue-admin/README.md)

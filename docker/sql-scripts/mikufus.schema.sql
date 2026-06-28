@@ -1,28 +1,3 @@
-# Development Database
-
-## Create User
-
-postgers 用户，为 MikuFus 创建用户 mikufus 执行下面 sql script
-
-```sql
--- 创建项目专用用户
-create user mikufus with password '[sixiedian]0315';
-
--- 创建项目数据库
- create database mikufus;
-
--- 设置项目数据库所有者
-alter database mikufus owner to mikufus;
-
--- 授予权限
-grant all privileges on database mikufus to mikufus;
-```
-
-### 表结构
-
-#### users
-
-```sql
 -- 创建用户表，包含软删除字段
 create table if not exists users (
     id bigserial,
@@ -72,4 +47,3 @@ begin
     end if;
 end;
 $$;
-```
