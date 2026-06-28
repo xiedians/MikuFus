@@ -23,7 +23,7 @@ grant all privileges on database mikufus to mikufus;
 #### users
 
 ```sql
--- 创建用户表，所有约束均为表级
+-- 创建用户表，包含软删除字段
 create table if not exists users (
     id bigserial,
     username varchar(64) not null,
@@ -37,18 +37,20 @@ create table if not exists users (
     last_login_at timestamp with time zone,
     created_at timestamp with time zone default current_timestamp,
     updated_at timestamp with time zone default current_timestamp,
+    deleted_at timestamp with time zone default null,   -- 新增软删除字段
 
     -- 主键约束
     constraint users_pkey primary key (id),
-    -- 唯一约束
+    -- 唯一约束（依然保留，表示即使软删除后，用户名和邮箱仍不可复用）
     constraint users_username_key unique (username),
     constraint users_email_key unique (email)
 );
 
--- 索引（增加 if not exists 避免重复创建）
+-- 索引（增加 deleted_at 索引，加速软删除过滤）
 create index if not exists idx_users_username on users(username);
 create index if not exists idx_users_email on users(email);
 create index if not exists idx_users_status on users(status);
+create index if not exists idx_users_deleted_at on users(deleted_at);
 
 -- 自动更新 updated_at 的函数（已存在则替换）
 create or replace function update_updated_at_column()

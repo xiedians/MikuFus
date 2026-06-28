@@ -137,5 +137,6 @@ mikufus/
 * [开发环境文档](docs/dev-env.md)
 * [数据库文档](docs/dev-db.md)
 * [API 文档](docs/dev-api.md)
+* [开发计划](docs/dev-plan.md)
 
 ## 项目部署
